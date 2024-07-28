@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import Image from "next/image";
@@ -6,8 +8,15 @@ import { Link } from "next-view-transitions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye, EyeOff } from "lucide-react";
 
 const SigninClient = () => {
+  const [viewPass, setViewPass] = React.useState<boolean>(false);
+
+  const handleChangeViewPass = () => {
+    setViewPass(!viewPass);
+  };
+
   return (
     <div className="w-full h-screen lg:grid lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
@@ -29,9 +38,10 @@ const SigninClient = () => {
                 required
               />
             </div>
-            <div className="grid gap-2">
+            <div className="grid gap-2 relative">
               <div className="flex items-center">
                 <Label htmlFor="password">Contraseña</Label>
+
                 <Link
                   href="/forgot-password"
                   className="ml-auto inline-block text-sm underline text-primary"
@@ -41,11 +51,24 @@ const SigninClient = () => {
               </div>
               <Input
                 id="password"
-                type="password"
+                type={viewPass ? "text" : "password"}
                 name="password"
                 placeholder="********"
                 required
               />
+              <Button
+                type="button"
+                size={"icon"}
+                className="absolute bottom-0 right-0 cursor-pointer"
+                variant={"outline"}
+                onClick={handleChangeViewPass}
+              >
+                {viewPass ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </Button>
             </div>
             <Button type="submit" className="w-full">
               Login

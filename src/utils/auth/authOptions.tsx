@@ -1,8 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { userRegister } from "@/types/user.type";
 
-const secretKey = "d43mo5kid80ad2heq28ndiah09dnioawed8q2";
+const secretKey = process.env.NEXT_PUBLIC_KEY_AUTH;
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
@@ -47,6 +48,10 @@ export async function login(formData: FormData) {
       avatar: user?.avatar,
     },
   };
+}
+
+export async function registerAuth(userRegister: userRegister) {
+  return "SI FUNCA";
 }
 
 export async function logout() {
